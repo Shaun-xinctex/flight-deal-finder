@@ -1,22 +1,9 @@
-import { createFileRoute } from "@tanstack/react-router";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { SiteHeader } from "@/components/site-header";
+import { Seo } from "@/components/seo";
 import { useAuth } from "@/hooks/use-auth";
-
-export const Route = createFileRoute("/_authenticated/watchlist")({
-  head: () => ({
-    meta: [
-      { title: "Your watchlist 我的清單 — Flight Price Notifier" },
-      {
-        name: "description",
-        content: "The routes you're tracking from Taipei and their target prices.",
-      },
-    ],
-  }),
-  component: WatchlistPage,
-});
 
 type Watch = {
   id: string;
@@ -55,7 +42,7 @@ function formatNT(n: number) {
   return `NT$${n.toLocaleString("en-US")}`;
 }
 
-function WatchlistPage() {
+export default function WatchlistPage() {
   const { user } = useAuth();
   const queryClient = useQueryClient();
   const [destCode, setDestCode] = useState(POPULAR_DESTINATIONS[0]?.code ?? "KIX");
@@ -124,6 +111,7 @@ function WatchlistPage() {
 
   return (
     <div className="relative min-h-screen bg-cream text-ink">
+      <Seo title="Your watchlist 我的清單 — Flight Price Notifier" description="The routes you're tracking from Taipei and their target prices." />
       <div
         className="pointer-events-none absolute inset-0"
         style={{

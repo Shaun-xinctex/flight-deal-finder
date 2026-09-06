@@ -1,28 +1,11 @@
-import { createFileRoute, useNavigate } from "@tanstack/react-router";
+import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { lovable } from "@/integrations/lovable/index";
 import { SiteHeader } from "@/components/site-header";
+import { Seo } from "@/components/seo";
 
-export const Route = createFileRoute("/auth")({
-  head: () => ({
-    meta: [
-      { title: "Sign in — Flight Price Notifier 機票降價通知" },
-      {
-        name: "description",
-        content: "Sign in to track flight prices from Taipei and get emailed when fares drop to your target price.",
-      },
-      { property: "og:title", content: "Sign in — Flight Price Notifier 機票降價通知" },
-      {
-        property: "og:description",
-        content: "Sign in to track flight prices from Taipei and get emailed when fares drop to your target price.",
-      },
-    ],
-  }),
-  component: AuthPage,
-});
-
-function AuthPage() {
+export default function AuthPage() {
   const navigate = useNavigate();
   const [mode, setMode] = useState<"signin" | "signup">("signin");
   const [email, setEmail] = useState("");
@@ -40,7 +23,7 @@ function AuthPage() {
       if (mode === "signin") {
         const { error } = await supabase.auth.signInWithPassword({ email, password });
         if (error) throw error;
-        navigate({ to: "/watchlist" });
+        navigate("/watchlist");
       } else {
         const { data, error } = await supabase.auth.signUp({
           email,
@@ -51,7 +34,7 @@ function AuthPage() {
         if (!data.session) {
           setMessage("確認信已寄出!Check your email to confirm your account, then sign in.");
         } else {
-          navigate({ to: "/watchlist" });
+          navigate("/watchlist");
         }
       }
     } catch (err) {
@@ -71,11 +54,15 @@ function AuthPage() {
       return;
     }
     if (result.redirected) return;
-    navigate({ to: "/watchlist" });
+    navigate("/watchlist");
   }
 
   return (
     <div className="relative min-h-screen bg-cream text-ink">
+      <Seo
+        title="Sign in — Flight Price Notifier 機票降價通知"
+        description="Sign in to track flight prices from Taipei and get emailed when fares drop to your target price."
+      />
       <div
         className="pointer-events-none absolute inset-0"
         style={{
