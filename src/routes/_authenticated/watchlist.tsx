@@ -58,7 +58,7 @@ function formatNT(n: number) {
 function WatchlistPage() {
   const { user } = useAuth();
   const queryClient = useQueryClient();
-  const [destCode, setDestCode] = useState(POPULAR_DESTINATIONS[0].code);
+  const [destCode, setDestCode] = useState(POPULAR_DESTINATIONS[0]?.code ?? "KIX");
   const [target, setTarget] = useState("");
   const [formError, setFormError] = useState<string | null>(null);
 
