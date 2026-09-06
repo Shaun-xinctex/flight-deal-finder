@@ -14,7 +14,51 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      fare_watches: {
+        Row: {
+          created_at: string
+          current_lowest: number | null
+          destination_code: string
+          destination_name: string
+          destination_zh: string | null
+          id: string
+          notify_on_drop: boolean
+          origin: string
+          previous_price: number | null
+          status: string
+          target_price: number
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          current_lowest?: number | null
+          destination_code: string
+          destination_name: string
+          destination_zh?: string | null
+          id?: string
+          notify_on_drop?: boolean
+          origin?: string
+          previous_price?: number | null
+          status?: string
+          target_price: number
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          current_lowest?: number | null
+          destination_code?: string
+          destination_name?: string
+          destination_zh?: string | null
+          id?: string
+          notify_on_drop?: boolean
+          origin?: string
+          previous_price?: number | null
+          status?: string
+          target_price?: number
+          user_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
