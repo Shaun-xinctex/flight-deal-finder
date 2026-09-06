@@ -1,28 +1,7 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { Link } from "react-router-dom";
 import { SiteHeader } from "@/components/site-header";
+import { Seo } from "@/components/seo";
 import { useAuth } from "@/hooks/use-auth";
-
-export const Route = createFileRoute("/")({
-  head: () => ({
-    meta: [
-      { title: "Flight Price Notifier 機票降價通知 — Taipei fare alerts" },
-      {
-        name: "description",
-        content:
-          "設定航線與目標價,機票降價就通知你。Set a route and a target price — we email you when the fare drops from Taipei.",
-      },
-      { property: "og:title", content: "Flight Price Notifier 機票降價通知" },
-      {
-        property: "og:description",
-        content:
-          "Set a route and a target price — we email you when the fare drops. 設定航線與目標價,機票降價就通知你。",
-      },
-      { property: "og:type", content: "website" },
-      { name: "twitter:card", content: "summary_large_image" },
-    ],
-  }),
-  component: LandingPage,
-});
 
 const POPULAR_ROUTES = [
   { code: "KIX", name: "Osaka 大阪", price: "NT$5,200", change: "−41%", bars: [70, 60, 52, 38, 24] },
@@ -48,12 +27,16 @@ const STEPS = [
   },
 ];
 
-function LandingPage() {
+export default function LandingPage() {
   const { user } = useAuth();
   const ctaTo = user ? "/watchlist" : "/auth";
 
   return (
     <div className="relative min-h-screen bg-cream text-ink">
+      <Seo
+        title="Flight Price Notifier 機票降價通知 — Taipei fare alerts"
+        description="設定航線與目標價,機票降價就通知你。Set a route and a target price — we email you when the fare drops from Taipei."
+      />
       <div
         className="pointer-events-none absolute inset-0"
         style={{
