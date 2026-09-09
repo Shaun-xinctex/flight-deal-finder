@@ -9,7 +9,7 @@ const API_BASE = "https://wogic6sc77.execute-api.us-east-1.amazonaws.com";
 
 type PlanKey = "tokyo" | "seoul";
 
-const PLANS: Record
+const PLANS: Record<
   PlanKey,
   { label: string; labelZh: string; origin: string; destination: string; hint: number }
 > = {
